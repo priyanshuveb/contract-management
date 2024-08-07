@@ -4,17 +4,17 @@ pragma solidity ^0.8.13;
 contract AccessControl {
     address public admin;
 
-    mapping (address => bool) public authorizedUsers;
+    mapping(address => bool) public authorizedUsers;
 
     event AdminUpdated(address indexed newAdmin, address oldAdmin);
     event UsersAuthorized(address[] users);
 
-    modifier onlyAdmin {
+    modifier onlyAdmin() {
         require(msg.sender == admin, "AccessControl: Only admin access");
         _;
     }
 
-    modifier onlyAuthorizedUser {
+    modifier onlyAuthorizedUser() {
         require(authorizedUsers[msg.sender], "AccessControl: Only authorized user access");
         _;
     }
@@ -25,11 +25,10 @@ contract AccessControl {
     }
 
     function authorizeUsers(address[] memory _authorizedusers) public onlyAdmin {
-        for(uint i =0; i<_authorizedusers.length;) {
+        for (uint256 i = 0; i < _authorizedusers.length;) {
             authorizedUsers[_authorizedusers[i]] = true;
             ++i;
         }
         emit UsersAuthorized(_authorizedusers);
     }
-
 }

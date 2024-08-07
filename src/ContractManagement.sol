@@ -4,8 +4,7 @@ pragma solidity ^0.8.13;
 import {AccessControl} from "./AccessControl.sol";
 
 contract ContractManagement is AccessControl {
-
-    mapping (address => string) public contractDesc;
+    mapping(address => string) public contractDesc;
 
     event ContractAdded(address indexed theContract, string description);
     event ContractUpdated(address indexed theContract, string description);

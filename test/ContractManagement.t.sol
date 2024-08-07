@@ -2,15 +2,14 @@
 pragma solidity ^0.8.13;
 
 import {Test, console2} from "forge-std/Test.sol";
-import { ContractManagement } from "../src/ContractManagement.sol";
+import {ContractManagement} from "../src/ContractManagement.sol";
 
 contract ContractManagementTest is Test {
     ContractManagement public contractManagement;
     address public ALICE = makeAddr("alice");
     address public RILEY = makeAddr("riley");
     address public DEREK = makeAddr("derek");
-    address[] users = [RILEY,DEREK];
-
+    address[] users = [RILEY, DEREK];
 
     function setUp() public {
         console2.log(ALICE);
@@ -35,6 +34,7 @@ contract ContractManagementTest is Test {
         vm.expectRevert(bytes(""));
         contractManagement.setAdmin(DEREK);
     }
+
     function test_AuthorizeUsers() external {
         vm.prank(ALICE);
         contractManagement.authorizeUsers(users);
@@ -42,9 +42,8 @@ contract ContractManagementTest is Test {
         assertEq(contractManagement.authorizedUsers(DEREK), true);
     }
 
-
     function test_AddContractByAuthorizedUsers() external {
-        address contract1 = makeAddr('contract1');
+        address contract1 = makeAddr("contract1");
         string memory desc = "contract 1";
         vm.prank(ALICE);
         contractManagement.authorizeUsers(users);
@@ -54,19 +53,19 @@ contract ContractManagementTest is Test {
     }
 
     function testFail_UnauthorizedUserAccessToAddContract() external {
-        address contract1 = makeAddr('contract1');
+        address contract1 = makeAddr("contract1");
         string memory desc = "contract 1";
-        address NANCY = makeAddr('NANCY');
+        address NANCY = makeAddr("NANCY");
         vm.prank(ALICE);
         contractManagement.authorizeUsers(users);
         vm.prank(NANCY);
         vm.expectRevert(bytes(""));
-        contractManagement.addContract(contract1, desc);   
+        contractManagement.addContract(contract1, desc);
     }
 
     function test_UpdateContractIfOnlyExists() external {
-        address contract1 = makeAddr('contract1');
-        address contract2 = makeAddr('contract2');
+        address contract1 = makeAddr("contract1");
+        address contract2 = makeAddr("contract2");
         string memory desc = "contract 1";
         string memory desc2 = "contract 1 update";
         vm.prank(ALICE);
@@ -83,7 +82,7 @@ contract ContractManagementTest is Test {
     }
 
     function test_RemoveContract() external {
-        address contract1 = makeAddr('contract1');
+        address contract1 = makeAddr("contract1");
         string memory desc = "contract 1";
         vm.prank(ALICE);
         contractManagement.authorizeUsers(users);
