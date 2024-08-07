@@ -8,6 +8,7 @@ contract AccessControl {
 
     event AdminUpdated(address indexed newAdmin, address oldAdmin);
     event UsersAuthorized(address[] users);
+    event UsersUnauthorized(address[] users);
 
     modifier onlyAdmin() {
         require(msg.sender == admin, "AccessControl: Only admin access");
@@ -30,5 +31,13 @@ contract AccessControl {
             ++i;
         }
         emit UsersAuthorized(_authorizedusers);
+    }
+
+    function unauthorizeUsers(address[] memory _authorizedusers) public onlyAdmin {
+        for (uint256 i = 0; i < _authorizedusers.length;) {
+            delete authorizedUsers[_authorizedusers[i]];
+            ++i;
+        }
+        emit UsersUnauthorized(_authorizedusers);
     }
 }

@@ -15,18 +15,18 @@ contract ContractManagement is AccessControl {
         emit AdminUpdated(admin, address(0));
     }
 
-    function addContract(address _contract, string memory _description) public onlyAuthorizedUser {
+    function addContract(address _contract, string memory _description) external onlyAuthorizedUser {
         contractDesc[_contract] = _description;
         emit ContractAdded(_contract, _description);
     }
 
-    function updateContract(address _contract, string memory _description) public onlyAuthorizedUser {
+    function updateContract(address _contract, string memory _description) external onlyAuthorizedUser {
         require(bytes(contractDesc[_contract]).length != 0, "Contract does not exists");
         contractDesc[_contract] = _description;
         emit ContractUpdated(_contract, _description);
     }
 
-    function removeContract(address _contract) public onlyAuthorizedUser {
+    function removeContract(address _contract) external onlyAuthorizedUser {
         delete contractDesc[_contract];
         emit ContractRemoved(_contract);
     }

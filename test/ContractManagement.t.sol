@@ -42,6 +42,15 @@ contract ContractManagementTest is Test {
         assertEq(contractManagement.authorizedUsers(DEREK), true);
     }
 
+    function test_UnauthorizeUsers() external {
+        vm.startPrank(ALICE);
+        contractManagement.authorizeUsers(users);
+        assertEq(contractManagement.authorizedUsers(RILEY), true);
+        contractManagement.unauthorizeUsers(users);
+        assertEq(contractManagement.authorizedUsers(RILEY), false);
+        vm.stopPrank();       
+    }
+
     function test_AddContractByAuthorizedUsers() external {
         address contract1 = makeAddr("contract1");
         string memory desc = "contract 1";
@@ -94,13 +103,4 @@ contract ContractManagementTest is Test {
 
         vm.stopPrank();
     }
-    // function test_Increment() public {
-    //     counter.increment();
-    //     assertEq(counter.number(), 1);
-    // }
-
-    // function testFuzz_SetNumber(uint256 x) public {
-    //     counter.setNumber(x);
-    //     assertEq(counter.number(), x);
-    // }
 }
