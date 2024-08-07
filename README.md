@@ -22,36 +22,36 @@ $ forge coverage
 ```
 
 ### Test Cases
-- test_GetAdmin
+- `test_GetAdmin`
   - Tests if the admin has been set correctly 
-- test_SetNewAdmin
+- `test_SetNewAdmin`
   - Sets the new admin, can only be set by old admin
-- testFail_UnauthorizedSetAdmin
+- `testFail_UnauthorizedSetAdmin`
   - Tests if unauthorized account tried to update admin address
-- test_AuthorizeUsers
+- `test_AuthorizeUsers`
   - Tests if the authorized users has been set correctly
-- test_AddContractByAuthorizedUsers
+- `test_AddContractByAuthorizedUsers`
   - Tests the contract information can only be added by the authorized users otherwise reverts
-- testFail_UnauthorizedUserAccessToAddContract 
+- `testFail_UnauthorizedUserAccessToAddContract` 
   - Tests the revert on unauthorised access to add a new contract
-- test_UpdateContractIfOnlyExists
+- `test_UpdateContractIfOnlyExists`
   - Tests the contract can only be updated if it already exists otherwise reverts
-- test_RemoveContract
+- `test_RemoveContract`
   - Tests if only authorised users can remove the contracts
 
 
 ### Contract Functions
-- setAdmin(new_admin)
+- `setAdmin(new_admin)`
   - Admin access only, takes 1 param, sets the new_admin as the admin of the contract, an admin can authorize/unauthorize users to access contract functions
-- authorizeUsers(address[]_users)
+- `authorizeUsers(address[]_users)`
   - Admin access only, takes 1 param, authorizes the list of users
-- unauthorizeUsers(address[]_users) 
+- `unauthorizeUsers(address[]_users)`
   - Admin access only, takes 1 param, unauthorizes the list of users
-- addContract(contract_address,dscription)
+- `addContract(contract_address,dscription)`
   - Authorized access only, takes 2 params, sets the mapping of a contract address to its description
-- updateContract(contract_address,dscription)
+- `updateContract(contract_address,dscription)`
   - Authorized access only, takes 2 params, updates the mapping of a contract address to its new description only if it already exists otherwise reverts
-- removeContract(address_contract)
+- `removeContract(address_contract)`
   - Authorized access only, takes 1 param, deletes the description assosciated with the fetched contract address
 
 
