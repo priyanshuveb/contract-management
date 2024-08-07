@@ -24,11 +24,10 @@ contract ContractManagementTest is Test {
         assertEq(admin, ALICE);
     }
 
-    function test_AuthorizeUsers() external {
+    function test_SetNewAdmin() external {
         vm.prank(ALICE);
-        contractManagement.authorizeUsers(users);
-        assertEq(contractManagement.authorizedUsers(RILEY), true);
-        assertEq(contractManagement.authorizedUsers(DEREK), true);
+        contractManagement.setAdmin(RILEY);
+        assertEq(RILEY, contractManagement.admin());
     }
 
     function testFail_UnauthorizedSetAdmin() public {
@@ -36,6 +35,13 @@ contract ContractManagementTest is Test {
         vm.expectRevert(bytes(""));
         contractManagement.setAdmin(DEREK);
     }
+    function test_AuthorizeUsers() external {
+        vm.prank(ALICE);
+        contractManagement.authorizeUsers(users);
+        assertEq(contractManagement.authorizedUsers(RILEY), true);
+        assertEq(contractManagement.authorizedUsers(DEREK), true);
+    }
+
 
     function test_AddContractByAuthorizedUsers() external {
         address contract1 = makeAddr('contract1');
@@ -47,7 +53,7 @@ contract ContractManagementTest is Test {
         assertEq(bytes(desc), bytes(contractManagement.contractDesc(contract1)));
     }
 
-    function testFail_UnauthorizedUserAccessAddContract() external {
+    function testFail_UnauthorizedUserAccessToAddContract() external {
         address contract1 = makeAddr('contract1');
         string memory desc = "contract 1";
         address NANCY = makeAddr('NANCY');
